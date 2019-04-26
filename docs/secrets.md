@@ -24,7 +24,7 @@ Two scripts respectively allow to unzip all the secrets to your local environmen
 #### Unziping all the secrets from the root of the project and copying them all to the right locations in the project ("unpacking")
 
 ```sh
-cd <whatever>/emporio-native
+cd <whatever>/yourapp
 git checkout master
 git pull
 yarn pack-secrets -e <environment> -p <secretsPasswordForThisEnvironment>
@@ -33,7 +33,7 @@ yarn pack-secrets -e <environment> -p <secretsPasswordForThisEnvironment>
 #### Zipping all secrets to the encrypted archive from the project root ("packing")
 
 ```sh
-cd <whatever>/emporio-native
+cd <whatever>/yourapp
 git checkout master
 git pull
 yarn unpack-secrets -e <environment> -p <secretsPasswordForThisEnvironment>
