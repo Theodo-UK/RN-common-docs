@@ -37,7 +37,7 @@ cd <whatever>/yourapp
 git checkout master
 git pull
 yarn unpack-secrets -e <environment> -p <secretsPasswordForThisEnvironment>
-# Do your changes in the secret files/add a secret to pack in ./pack_secrets.sh
+# Do your changes in the secret files/add a secret to pack in secrets-scripts/pack_secrets.sh
 yarn pack-secrets -e <environment>
 # MAKE SURE YOU ENTER THE SAME PASSWORD AS BEFORE! (Unless you do this specifically to change the password)
 ```

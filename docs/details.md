@@ -1,5 +1,21 @@
 # Details on the setup 🤓
 
+## Appcenter CodePush (Instant release) 🔫
+
+- CodePush deployment key per app per environment **and** CodePush public key per environment entered in platform-specific configuration files:
+
+  - `ios/yourapp/Info.plist`
+  - `android/app/src/main/res/values/strings.xml`
+
+  The keys are entered in the fastlane environment secrets file (`fastlane/.env.<env-name>.secret`) and set in the platform-specific config files per environment when doing a hard deploy.  
+  For details see lanes `set_keys` and `ios:build` in the [Fastfile](../fastlane/Fastfile).
+
+  > ⚠️ Don't ever commit one of these two files with an actual staging/production key in it! Only `Fastlane` should be responsible for setting the correct keys here, otherwise our secrets might be unveiled.
+
+- CodePush entry point and config in `src/index.js`
+
+To use Codepush, see [Deployment 🚀](./docs/deployment.md).
+
 ## (If used) Firebase (Analytics & Push Notifications) 🔥
 
 Firebase is installed using [React Native Firebase](https://rnfirebase.io/docs/v5.x.x/getting-started).
@@ -37,19 +53,3 @@ For details see lanes `set_keys` and `ios:build` in the [Fastfile](../fastlane/F
 > ⚠️ Don't ever commit one of these two files with an actual staging/production key in it! Only `Fastlane` should be responsible for setting the correct keys here, otherwise our secrets might be unveiled.
 
 To monitor crashes, visit AppCenter Diagnostics
-
-## Appcenter CodePush (Instant release) 🔫
-
-- CodePush deployment key per app per environment **and** CodePush public key per environment entered in platform-specific configuration files:
-
-  - `ios/yourapp/Info.plist`
-  - `android/app/src/main/res/values/strings.xml`
-
-  The keys are entered in the fastlane environment secrets file (`fastlane/.env.<env-name>.secret`) and set in the platform-specific config files per environment when doing a hard deploy.  
-  For details see lanes `set_keys` and `ios:build` in the [Fastfile](../fastlane/Fastfile).
-
-  > ⚠️ Don't ever commit one of these two files with an actual staging/production key in it! Only `Fastlane` should be responsible for setting the correct keys here, otherwise our secrets might be unveiled.
-
-- CodePush entry point and config in `src/index.js`
-
-To use Codepush, see [Deployment 🚀](./docs/deployment.md).

@@ -50,10 +50,10 @@
   ```sh
   yarn
   ```
-- If there is a dev environment, unpack the dev app secrets.
+- If there is a dev environment, unpack the dev app secrets, otherwise unpack the staging app secrets.
   ```sh
   brew install gpg
-  ./unpack_secrets.sh -e dev -p <archivePasswordForDev>
+  ./unpack_secrets.sh -e dev/staging -p <archivePasswordForDev/Staging>
   ```
 - Install React Native Debugger.
   ```sh

@@ -31,7 +31,7 @@ react-native run-ios --simulator="iPhone 8"
 
 - Pre-requisites:
   - Fastlane configured on your local environment (see "Setup" section [here](./deployment.md))
-  - Your device [has been added for access to the staging app](./docs/invite_to_staging.md)
+  - Your device [has been added for access to the staging app](./invite_to_staging.md)
   - `match` password
 - Run the following command to get the latest signing identity for running on device:
   ```sh
@@ -65,16 +65,14 @@ react-native run-android
 
 - `ESLint`
 - `Prettier`
-- `vscode-flow-ide`
-- `GraphQL for VSCode`
+- `TSLint`
 - `Atom keymap` for Atom lovers
-- `Babel javascript`
 - `Color highlight`
 - `DotENV`
 - `GitLens`
 - `VS Live Share`
 
-Make sure you have `formatOnSave` option enabled in your settings.
+Make sure you have `formatOnSave` option enabled in your user settings.
 
 ### Commands/tools useful to unblock yourself if the app doesn't build/doesn't work in simulator/RN packager shows errors
 
@@ -104,7 +102,7 @@ Make sure you have `formatOnSave` option enabled in your settings.
 
 - Make sure you unpacked the dev/staging app secrets.
   ```sh
-  ./unpack_secrets.sh -e dev -p <stagingSecretsPasswordASKOPSTEAM>
+  ./unpack_secrets.sh -e dev -p <stagingSecretsPassword>
   ```
 - Delete iOS build folder
   ```sh

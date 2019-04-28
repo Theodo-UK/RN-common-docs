@@ -10,9 +10,9 @@ There are two types of deployment:
 
 - **Hard deploy**: deployment that builds an archive with both the `native` and `js` code and then uploads it to _AppCenter/Beta App Store/Production App store_ (see [here](./invite_to_staging.md) to know what these are). Getting the content of this deployment on a phone requires the user to update the app from https://install.appcenter.ms or the corresponding App Store.
 
-- **Soft deploy**: deployment that only builds the `js` code and publishes it to the _CodePush_ server. Any user opening the app with the a _Version Number_ matching the target of the CodePushed bundle will immediately receive the update to their phone. Getting this update doesn't require any action from the user.
+- **Soft deploy**: deployment that only builds the `js` code and publishes it to the _CodePush_ server. Any user opening the app with a _Version Number_ matching the target of the CodePushed bundle will immediately receive the update to their phone. Getting this update doesn't require any action from the user.
 
-**Environment**: `dev` (if setup), `staging` or `production`. Configuration of the app that matches the purpose of its deployment. For example, the ios production app will be deployed to Test Flight and Apple App store with production code signing and the keys corresponding to Firebase production, Appcenter production, CodePush production etc.
+**Environment**: `dev` (if setup), `staging` or `production`. Configuration of the app that matches the purpose of its deployment. For example, the iOS production app will be deployed to Test Flight and App Store with production code signing and the keys corresponding to (if setup) Firebase production, Appcenter production, CodePush production etc.
 
 **Platform**: iOS or Android.
 
@@ -129,7 +129,7 @@ _For example, you can't add Apple Pay in the app if your code signing isn't conf
 iOS code signing is composed of 2 parts:
 
 - correct certificate's private key (certificates are handled by [Apple Developer Portal](https://developer.apple.com/account) admins and make sure that the person is authorised to publish on behalf of your company)
-- correct provisioning profile, also create in [Dev Portal](https://developer.apple.com/account) which itself contains information on:
+- correct provisioning profile, also created in [Dev Portal](https://developer.apple.com/account) which itself contains information on:
   - App ID: which app the provisioning profile is allowed to deploy
   - App entitlements (whether app is allowed to have Apple Pay, Push notifications, Deep linking etc.)
   - Deployment type: App Store (for production) or Ad Hoc (for staging).
@@ -162,7 +162,7 @@ You need to unpack secrets to get that file in the right location.
 For configuration, see [Details 🤓](./details.md).  
 CodePush and its parameters are called in [`deploy.sh`](./deploy.sh):
 
-- `--target-binary-version` makes sure that only users with the matching _Version Number_ will receive the update. Currently, this is configured so that users with a version **higher than or equal** to `<IOS/ANDRODID>_MINIMUM_CODEPUSH_VERSION` found in `fastlane/.env` will get the update.
+- `--target-binary-version` makes sure that only users with the matching _Version Number_ will receive the update. Currently, this is configured so that users with a version **equal** to `<IOS_VERSION/ANDROID_VERSION_NAME>` found in `fastlane/.env` will get the update.
 - `-m` specifies if the update should be _mandatory_ or not. Mandatory means customers will get the update on their next start/restore of the app at the expense of seeing a flashing and their app restart (this interrupts their experience).
 
 ### Why hard and soft deploy?
@@ -186,7 +186,7 @@ If you CodePush `js` code targeting a _Version Number_ that doesn't contain the 
 
 #### Production
 
-Every time we decide to do a deployment, the code should be:
+Every time you decide to do a deployment, the code should be:
 
 - first, soft deployed **if there are no native code change**, so that current users get the update as soon as possible.  
   If the deployment is a super important bugfix the soft deployment can be made `mandatory` in the Codepush Appcenter portals so that customers get the update immediately.
@@ -206,13 +206,7 @@ There are 2 types of version bumping:
 
   To be bumped every time the App is submitted to Apple and Google. The easiest way to get that is to bump to a new value just after doing it and commit.
 
-- _Minimum CodePush target version_ (`IOS/ANDROID_MINIMUM_CODEPUSH_VERSION` in `fastlane/.env`): the `js` code will be CodePushed to all users with their _Version Number_ higher or equal to this one.
-
-  To be bumped to the earliest _Version Number_ that this `js` code is compatible with.  
-  In other words, the value of this should be the smallest version number that had **the same native code** as current code.  
-  => This won't be bumped very often :)
-
-These processes have been automated to avoid human errors and save time. See Circle-CI section below.
+These processes can be automated to avoid human errors and save time. See Circle-CI section below.
 
 ## Automatic - How Circle-CI uses these commands to test, build & deploy on every push.
 
@@ -231,7 +225,7 @@ These processes have been automated to avoid human errors and save time. See Cir
 ### Production
 
 - Create a PR from `master` to production.
-- In the PR, in `fastlane/.env`, make sure that the _Version Numbers_ are bumped compared to latest release and make sure that the _Minimum target CodePush version number_ is bumped as well if needed (see _How should version bumping be done?_ section above).  
+- In the PR, in `fastlane/.env`, make sure that the _Version Numbers_ are bumped compared to latest release.
   If not, get that fixed in `master` first.
 - Get the PR reviewed and approved.
 - Merge the PR (you need to be admin). Wait for all Circle-CI jobs to succeed. Your features have been CodePushed by now.
