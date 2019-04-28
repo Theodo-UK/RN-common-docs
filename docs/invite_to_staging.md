@@ -1,4 +1,4 @@
-# [Inviting new people to the Staging and Beta Apps 👪](./docs/invite_to_staging.md)
+# Inviting new people to the Staging and Beta Apps 👪
 
 There are two apps that can be installed on a given device:
 

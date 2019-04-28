@@ -14,7 +14,7 @@
 
 - CodePush entry point and config in `src/index.js`
 
-To use Codepush, see [Deployment 🚀](./docs/deployment.md).
+To use Codepush, see [Deployment 🚀](./deployment.md).
 
 ## (If used) Firebase (Analytics & Push Notifications) 🔥
 
